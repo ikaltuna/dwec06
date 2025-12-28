@@ -1,0 +1,39 @@
+<div class="card">
+  <div class="row">
+    <h2 style="margin:0;">{{ isEdit ? 'Editar libro' : 'Nuevo libro' }}</h2>
+    <a class="link" routerLink="/books">Volver</a>
+  </div>
+
+  <p *ngIf="error" class="err">{{ error }}</p>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <label>Título</label>
+    <input formControlName="title" placeholder="Ej: Clean Code" />
+    <small class="err" *ngIf="form.controls.title.touched && form.controls.title.invalid">
+      El título es obligatorio (mín. 3 caracteres).
+    </small>
+
+    <label>Autor</label>
+    <input formControlName="author" placeholder="Ej: Robert C. Martin" />
+    <small class="err" *ngIf="form.controls.author.touched && form.controls.author.invalid">
+      El autor es obligatorio (mín. 3 caracteres).
+    </small>
+
+    <label>Descripción</label>
+    <textarea formControlName="description" placeholder="Resumen del libro..."></textarea>
+    <small class="err" *ngIf="form.controls.description.touched && form.controls.description.invalid">
+      La descripción es obligatoria (mín. 10 caracteres).
+    </small>
+
+    <label>Categoría (número)</label>
+    <input type="number" formControlName="categoryId" />
+    <small class="err" *ngIf="form.controls.categoryId.touched && form.controls.categoryId.invalid">
+      La categoría debe ser un número >= 1.
+    </small>
+
+    <hr>
+    <button class="primary" type="submit" [disabled]="saving">
+      {{ saving ? 'Guardando...' : 'Guardar' }}
+    </button>
+  </form>
+</div>

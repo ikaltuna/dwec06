@@ -1,0 +1,48 @@
+<div class="card">
+  <div class="row">
+    <h2 style="margin:0;">Libros</h2>
+    <a class="link" routerLink="/books/new">+ Nuevo</a>
+  </div>
+
+  <label>Buscar</label>
+  <input
+    type="text"
+    placeholder="Buscar por título o descripción..."
+    [(ngModel)]="q"
+    (input)="applyFilter()"
+  />
+  <small class="hint">Extra: buscador + contador de resultados.</small>
+
+  <hr>
+
+  <p *ngIf="loading">Cargando...</p>
+  <p *ngIf="error" class="err">{{ error }}</p>
+
+  <p *ngIf="!loading">Mostrando {{ filtered.length }} de {{ books.length }}</p>
+
+  <ul class="list">
+    <li *ngFor="let b of filtered" class="card" style="padding:12px;">
+      <div class="row">
+        <div>
+          <strong>{{ b.title }}</strong>
+          <div>
+            <small class="hint">
+              {{ b.author }} · Categoría {{ b.categoryId }}
+              <span *ngIf="(b.id ?? 0) >= 1000" class="badge">local</span>
+            </small>
+          </div>
+        </div>
+
+        <div class="actions">
+          <a class="link" [routerLink]="['/books', b.id]">Ver</a>
+          <a class="link" [routerLink]="['/books', b.id, 'edit']">Editar</a>
+          <button (click)="remove(b.id)">Borrar</button>
+        </div>
+      </div>
+
+      <div>
+        <small class="hint">{{ b.description }}</small>
+      </div>
+    </li>
+  </ul>
+</div>

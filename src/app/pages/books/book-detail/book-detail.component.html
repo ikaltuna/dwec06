@@ -1,0 +1,21 @@
+<div class="card">
+  <p *ngIf="loading">Cargando...</p>
+  <p *ngIf="error" class="err">{{ error }}</p>
+
+  <ng-container *ngIf="book">
+    <div class="row">
+      <h2 style="margin:0;">{{ book.title }}</h2>
+      <div class="actions">
+        <a class="link" routerLink="/books">Volver</a>
+        <a class="link" [routerLink]="['/books', book.id, 'edit']">Editar</a>
+      </div>
+    </div>
+
+    <hr>
+
+    <p><strong>Autor:</strong> {{ book.author }}</p>
+    <p><strong>Categoría:</strong> {{ book.categoryId }}</p>
+    <p><strong>Descripción:</strong></p>
+    <p>{{ book.description }}</p>
+  </ng-container>
+</div>
